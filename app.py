@@ -1,57 +1,49 @@
 import gradio as gr
-from image_generation import generate_image
+# from image_generation import generate_image
+from image_generation import test_print
 
-dropdown_options = ["CompVis/stable-diffusion-v1-4", 
+model_options = ["CompVis/stable-diffusion-v1-4", 
                     "runwayml/stable-diffusion-v1-5",
                     "stabilityai/stable-diffusion-2-1", 
                     "stabilityai/stable-diffusion-2-1-base",
                     "prompthero/openjourney-v4"]
 
-# Define the categories and their corresponding prompts
-# helper_prompts = {
-#     "Clothes": [
-#         "T-shirt",
-#         "Jeans",
-#         "Dress"
-#     ],
-#     "Cars": [
-#         "Sedan",
-#         "SUV",
-#         "Sports car"
-#     ],
-#     "Food": [
-#         "Pizza",
-#         "Burger",
-#         "Sushi"
-#     ]
-# }
-
-# category = gr.Dropdown(choices=[""] + list(helper_prompts.keys()), label="Prompt category")
-# prompt = gr.Dropdown(label="Prompt")
-
-# def update_prompt(category_selected):
-#     if category_selected in helper_prompts:
-#         prompt.choices = helper_prompts[category_selected]
-#         prompt.interface.visible = True
-#     else:
-#         prompt.interface.visible = False
-
-# category.onchange = update_prompt
+scheduler_options = ["None", 
+                     "EulerDiscreteScheduler", 
+                     "PNDMScheduler", 
+                     "DPMSolverMultistepScheduler", 
+                     "LMSDiscreteScheduler", 
+                     "HeunDiscreteScheduler"]
 
 def main():
-    input = gr.Textbox(label="Enter your prompt")
-    drop_down = gr.Dropdown(choices=dropdown_options, 
-                            label='Model',
-                            info='Select model for inference')
+        prompt = gr.Textbox(label="Enter your prompt")
+        negative_prompt = gr.Textbox(label="Negative prompt", type='text', value="disfigured, ugly, bad, immature, cartoon, anime, 3d, painting, b&w") 
+        guidance_scale = gr.Textbox(label="Guidance scale", type='text', value=7.5)
+        model_dropdown = gr.Dropdown(choices=model_options, 
+                                label='Model',
+                                value='prompthero/openjourney-v4',
+                                info='Select model for inference')
 
-    output = gr.Image(label="Generated Image")
-    app = gr.Interface(fn=generate_image, 
-                    inputs=[input, drop_down],
-                    outputs=output, 
-                    title="Logo Generation",
-                    )
+        scheduler_dropdown = gr.Dropdown(choices=scheduler_options, 
+                                label='Scheduler',
+                                value='None',
+                                info='Select scheduler for inference. None for default')
 
-    app.launch()
+        inference_steps = gr.Slider(10, 100, value=50, step=1, label="Inference steps", info="Choose between 10 and 50")
+
+        generated_image = gr.Image(label="Generated Image")
+        app = gr.Interface(fn=test_print, 
+                        inputs=[prompt, 
+                                negative_prompt,
+                                model_dropdown,
+                                scheduler_dropdown,
+                                inference_steps,
+                                guidance_scale],
+                        outputs=generated_image, 
+                        title="Logo Generation",
+                        )
+        app.launch()
 
 if __name__=="__main__":
-    main()
+        main()
+    
