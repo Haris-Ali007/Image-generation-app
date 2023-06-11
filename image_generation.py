@@ -8,25 +8,41 @@ poorly drawn face, out of frame, extra limbs, disfigured, deformed, \
 body out of frame, bad anatomy, watermark, signature, cut off, low contrast, \
 underexposed, overexposed, bad art, beginner, amateur, distorted face."
 
-# def generate_image(prompt, model_id, classifier_guidance):
-#     model_id = "stabilityai/stable-diffusion-2-1"
-#     scheduler = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler")
-#     pipe = StableDiffusionPipeline.from_pretrained(model_id)
-#     pipe = pipe.to(torch_device)
-#     image = pipe(prompt, num_inference_steps=30, negative_prompt=negative_prompt).images[0]  
-#     return  image
+def generate_image(prompt, model_id, classifier_guidance):
+    model_id = "stabilityai/stable-diffusion-2-1"
+    scheduler = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler")
+    pipe = StableDiffusionPipeline.from_pretrained(model_id)
+    pipe = pipe.to(torch_device)
+    prompts = [prompt] * 4
+    negative_prompts = [negative_prompt] * 4
+    images = pipe(prompts, num_inference_steps=30, negative_prompt=negative_prompts).images  
+    return  images
 
-def test_print(prompt, 
-            negative_prompt,
-            model_dropdown,
-            scheduler_dropdown,
-            inference_steps,
-            guidance_scale):
-    print(prompt)
-    print(negative_prompt)
-    print(model_dropdown)
-    print(scheduler_dropdown)
-    print(inference_steps)
-    print(guidance_scale)
-    
+
+# def test_gui(prompt, 
+#             negative_prompt,
+#             model_dropdown,
+#             scheduler_dropdown,
+#             inference_steps,
+#             guidance_scale):
+#     print(prompt)
+#     print(negative_prompt)
+#     print(model_dropdown)
+#     print(scheduler_dropdown)
+#     print(inference_steps)
+#     print(guidance_scale)
+
+#     from PIL import Image
+#     import numpy as np
+
+#     # Create four noise images
+#     noise_images = []
+#     for _ in range(4):
+#         # Generate random noise array
+#         width, height = 512, 512  # Adjust as desired
+#         noise = np.random.randint(0, 256, (height, width, 3), dtype=np.uint8)
+#         noise_image = Image.fromarray(noise)
+#         noise_images.append(noise_image)
+
+#     return noise_images
     

@@ -1,6 +1,6 @@
 import gradio as gr
-# from image_generation import generate_image
-from image_generation import test_print
+from image_generation import generate_image
+# from image_generation import test_print
 
 model_options = ["CompVis/stable-diffusion-v1-4", 
                     "runwayml/stable-diffusion-v1-5",
@@ -30,17 +30,18 @@ def main():
                                 info='Select scheduler for inference. None for default')
 
         inference_steps = gr.Slider(10, 100, value=50, step=1, label="Inference steps", info="Choose between 10 and 50")
-
-        generated_image = gr.Image(label="Generated Image")
-        app = gr.Interface(fn=test_print, 
+        # generated_image = gr.Image(label="Generated Image")
+        gen_image_grid = gr.Gallery(label='Generated images').style(columns=[2], rows=[2], object_fit="cover", height="auto", preview=True)
+        app = gr.Interface(fn=generate_image, 
                         inputs=[prompt, 
                                 negative_prompt,
                                 model_dropdown,
                                 scheduler_dropdown,
                                 inference_steps,
                                 guidance_scale],
-                        outputs=generated_image, 
-                        title="Logo Generation",
+                        # outputs=generated_image,
+                        outputs=gen_image_grid, 
+                        title="Image Generation",
                         )
         app.launch()
 
