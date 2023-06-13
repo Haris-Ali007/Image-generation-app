@@ -28,7 +28,7 @@ def generate_image(prompt,
     pipe = pipe.to(torch_device)
     prompts = [prompt] * 4
     negative_prompts = [negative_prompt] * 4
-    images = pipe(prompts, num_inference_steps=inference_steps, negative_prompt=negative_prompts, guidance_scale=guidance_scale).images  
+    images = pipe(prompts, num_inference_steps=inference_steps, negative_prompt=negative_prompts, guidance_scale=float(guidance_scale)).images  
     return  images
 
 
