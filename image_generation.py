@@ -20,15 +20,16 @@ def generate_image(prompt,
                     model_id,
                     scheduler_name,
                     inference_steps,
-                    guidance_scale):
+                    guidance_scale,
+                    num_of_images):
 
     scheduler = schedulers[scheduler_name].from_pretrained(model_id, subfolder="scheduler")
     pipe = StableDiffusionPipeline.from_pretrained(model_id)
     if scheduler_name != "None":
         pipe.scheduler = scheduler
     pipe = pipe.to(torch_device)
-    prompts = [prompt] * 4
-    negative_prompts = [negative_prompt] * 4
+    prompts = [prompt] * num_of_images
+    negative_prompts = [negative_prompt] * num_of_images
     images = pipe(prompts, num_inference_steps=inference_steps, negative_prompt=negative_prompts, guidance_scale=float(guidance_scale)).images  
     return  images
 

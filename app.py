@@ -30,7 +30,8 @@ def main():
                                 info='Select scheduler for inference. None for default')
 
         inference_steps = gr.Slider(10, 100, value=50, step=1, label="Inference steps", info="Choose between 10 and 50")
-        # generated_image = gr.Image(label="Generated Image")
+        num_of_images = gr.Slider(1, 4, value=1, step=1, label="Number of images", info="Choose between 1 and 4")
+
         gen_image_grid = gr.Gallery(label='Generated images').style(columns=[2], rows=[2], object_fit="cover", height="auto", preview=True)
         app = gr.Interface(fn=generate_image, 
                         inputs=[prompt, 
@@ -38,7 +39,8 @@ def main():
                                 model_dropdown,
                                 scheduler_dropdown,
                                 inference_steps,
-                                guidance_scale],
+                                guidance_scale,
+                                num_of_images],
                         # outputs=generated_image,
                         outputs=gen_image_grid, 
                         title="Image Generation",
