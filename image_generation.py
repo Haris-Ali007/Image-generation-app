@@ -23,9 +23,9 @@ def generate_image(prompt,
                     guidance_scale,
                     num_of_images):
 
-    scheduler = schedulers[scheduler_name].from_pretrained(model_id, subfolder="scheduler")
     pipe = StableDiffusionPipeline.from_pretrained(model_id)
     if scheduler_name != "None":
+        scheduler = schedulers[scheduler_name].from_pretrained(model_id, subfolder="scheduler")
         pipe.scheduler = scheduler
     pipe = pipe.to(torch_device)
     prompts = [prompt] * num_of_images
