@@ -10,10 +10,10 @@ schedulers = {
     "HeunDiscreteScheduler": HeunDiscreteScheduler,
 }
 
-negative_prompt = "ugly, text, words, characters, tiling, poorly drawn hands, poorly drawn feet, \
-poorly drawn face, out of frame, extra limbs, disfigured, deformed, \
-body out of frame, bad anatomy, watermark, signature, cut off, low contrast, \
-underexposed, overexposed, bad art, beginner, amateur, distorted face."
+# negative_prompt = "ugly, text, words, characters, tiling, poorly drawn hands, poorly drawn feet, \
+# poorly drawn face, out of frame, extra limbs, disfigured, deformed, \
+# body out of frame, bad anatomy, watermark, signature, cut off, low contrast, \
+# underexposed, overexposed, bad art, beginner, amateur, distorted face."
 
 def generate_image(prompt, 
                     negative_prompt,
