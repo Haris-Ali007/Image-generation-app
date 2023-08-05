@@ -45,7 +45,7 @@ def main():
                         outputs=gen_image_grid, 
                         title="Image Generation",
                         )
-        app.launch(True)
+        app.launch(share=True)
 
 if __name__=="__main__":
         main()
