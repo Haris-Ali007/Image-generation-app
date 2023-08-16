@@ -4,6 +4,9 @@
 This app provides an easy to use UI built using gradio for image generation using stable diffusion.
 
 
+https://github.com/Haris-Ali007/Image-generation-app/assets/54216004/cc058cc9-f411-4b72-bfad-39c4ec21bb96
+
+
 ## Installation
 Start with cloning the project:
 
